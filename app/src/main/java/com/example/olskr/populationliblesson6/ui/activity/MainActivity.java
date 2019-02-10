@@ -18,8 +18,16 @@ import javax.inject.Inject;
 
 //чтобы Посторить MVP модель на Moxy наследуемся от MvpAppCompatActivity - класс Moxy но с Dagger это не нужно
 public class MainActivity extends AppCompatActivity {
+    //объявляем навигатор (от Cicerone), и передаем ему контейнер R.id.container, куда подменять фрагменты
     private Navigator navigator = new SupportAppNavigator(this, R.id.container) {
-
+        //здесь может ни чего не быть
+        //а можно перегрузить методы разные(например анимации или переход по ключу и т.д) нужно читать
+//        @Override
+//        protected void applyCommand(Command command) {
+//            if(command instanceof Replace){
+//                Replace replace = (Replace) command;
+//            }
+//        }
     };
 
     @Inject
@@ -32,20 +40,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.container);
-        if (savedInstanceState == null && fragment == null) {
+        if (savedInstanceState == null && fragment == null) { //если мы запустились первый раз приложение
+            //"123" - вроде как уникальный индефикатор конкретного фрагмента!!!!!
             Command[] commands = {new Replace(new com.example.olskr.populationliblesson6.navigation.Screens.MainScreen("123"))};
-            navigator.applyCommands(commands);
+            navigator.applyCommands(commands); //с помощью навигатора из Cicerone показываем наш первоначальный фрагмент
         }
     }
 
     @Override
     protected void onResumeFragments() {
         super.onResumeFragments();
+        //при подключении фрагмента подключаем навигатор(Cicerone) и говорим что пока есть эта активити используй его
         navigatorHolder.setNavigator(navigator);
     }
 
     @Override
-    protected void onPause() {
+    protected void onPause() { //при пайзе в активити отключаем навигатор
         super.onPause();
         navigatorHolder.removeNavigator();
     }

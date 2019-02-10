@@ -9,4 +9,4 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Scope
 @Documented
 @Retention(RUNTIME)
-public @interface SomeScope {}
+public @interface SomeScope {} //не нужно для проекта

@@ -8,13 +8,16 @@ import dagger.Module;
 import dagger.Provides;
 
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Module
 public class RepoModule {
 
-    @Singleton
+    @Singleton //Dagger будет хранить только один
     @Provides
+    //здесь нам нужен ICache. и внутри Dagger мы его можем получить без @Inject, так как мы добавили в
+    //AppComponent соответствующий модуль CacheModule. В других местах (вне Dagger) нам нажно прописывать аннотацию
     public UsersRepo usersRepo(ICache cache, IDataSource dataSource){
         return new UsersRepo(cache, dataSource);
     }

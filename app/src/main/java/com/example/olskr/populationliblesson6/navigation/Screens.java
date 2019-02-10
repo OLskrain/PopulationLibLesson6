@@ -6,7 +6,7 @@ import com.example.olskr.populationliblesson6.ui.fragment.MainFragment;
 
 import ru.terrakok.cicerone.android.support.SupportAppScreen;
 
-public class Screens {
+public class Screens { //класс для работы с фрагментами,чтобы показать его
 
     public static class MainScreen extends SupportAppScreen {
         String arg;

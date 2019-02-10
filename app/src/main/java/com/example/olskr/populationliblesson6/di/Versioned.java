@@ -9,7 +9,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Qualifier
 @Documented
 @Retention(RUNTIME)
-public @interface Versioned {
+//для проекта не очень нужно
+public @interface Versioned { //своя реализация @Named (это колифаер)
 
     int value() default 0;
 }

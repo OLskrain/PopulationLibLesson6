@@ -11,11 +11,7 @@ import dagger.Provides;
 public class CacheModule {
 
     @Provides
-    public ICache cache(){
+    public ICache cache() {
         return new RoomCache();
     }
-//    @Provides
-//    public ICache cache(){
-//        return new Real();
-//    }
 }

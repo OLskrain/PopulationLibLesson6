@@ -18,7 +18,7 @@ import javax.inject.Named;
 @Module
 public class ApiModule {
 
-    @Named("baseUrlProd")
+    @Named("baseUrlProd") //поможет определить какой URL на нужен (12)
     @Provides //чтобы дагер понял, что это функция что то нам предоставляет пишем @Provides
     public String baseUrlProduction(){
         return "https://api.github.com/";
@@ -34,17 +34,17 @@ public class ApiModule {
     @Provides
     public OkHttpClient okHttpClient(HttpLoggingInterceptor loggingInterceptor){
         return new OkHttpClient.Builder()
-                .addInterceptor(loggingInterceptor)
+                .addInterceptor(loggingInterceptor) //прикрутили Interceptor
                 .build();
     }
 
     @Provides
-    //(1)
+    //реализация iDataSource. (12)@Named("baseUrlProd")
     public IDataSource iDataSource(Gson gson, @Named("baseUrlProd") String baseUrl){
        return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create(gson)) //Наш gson прилетает сюда из метода ниже
                 .build()
                 .create(IDataSource.class);
     }

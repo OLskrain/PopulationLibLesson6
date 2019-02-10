@@ -43,7 +43,8 @@ public class MainPresenter extends MvpPresenter<MainView> {
         }
     }
 
-    @Inject
+    @Inject Router router; //подключаем ротер от Cicerone
+    @Inject //c помощью Dagger сделали зависимость(тоже самое что  и "new UsersRepo()")
     UsersRepo userRepo;
 
     private Scheduler mainThreadScheduler;
@@ -60,6 +61,16 @@ public class MainPresenter extends MvpPresenter<MainView> {
         loadInfo();
     }
 
+    public void onBackPressed() { //методя для возврашения назад с экрана(используется во фрагменте например
+        router.exit(); //вернуться назад
+        //router.backTo(new Screens.MainScreen("asd")); // вернуться на конкретный экран (вписать вместо...)
+    }
+
+    //допустим при нажатии на кпопку мы говорим роутеру, чтобы перешел на конкретный экран
+    //можем совершать навигацию, необрашаясь ни к каким фрагмент менеджерам(Cicerone его оборачивает)
+    public void someButtonClick(){
+        router.navigateTo(new Screens.MainScreen("asd"));
+    }
 
     @SuppressLint("CheckResult")
     public void loadInfo() {

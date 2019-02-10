@@ -78,13 +78,13 @@ public class MainFragment extends MvpAppCompatFragment implements MainView {
         String arg = getArguments().getString("arg");
 
         MainPresenter presenter = new MainPresenter(AndroidSchedulers.mainThread(), arg);
-        App.getInstance().getAppComponent().inject(presenter);
+        App.getInstance().getAppComponent().inject(presenter); //подключили презентер через Dagger
         return presenter;
     }
 
-//    public void onBackPressed(){
-//        presenter.onBackPressed();
-//    }
+    public void onBackPressed(){ //метод для возврашения назад после перехода
+        presenter.onBackPressed();
+    }
 
     @Override
     public void showAvatar(String avatarUrl) {

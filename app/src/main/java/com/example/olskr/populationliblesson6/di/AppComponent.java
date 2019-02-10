@@ -21,7 +21,7 @@ import javax.inject.Singleton;
         RepoModule.class,
         CiceroneModule.class
 })
-public interface AppComponent {
+public interface AppComponent { //совокупность модулей,  которые собраны в одном месте
     void inject(MainPresenter mainPresenter);
     void inject(MainActivity mainActivity);
 }
